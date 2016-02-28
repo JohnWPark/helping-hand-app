@@ -1,4 +1,6 @@
 <div class="container">
+
+  <!-- LEFT PANEL -->
   <div class="row">
 
     <div class="col-md-offset-1 col-md-4">
@@ -34,6 +36,7 @@
       </div>
     </div>
 
+      <!-- RIGHT PANEL -->
       <div class="col-md-6">
 
         <div ng-show="listMode">
@@ -48,7 +51,7 @@
               <h3>{{selectedTask.title}}</h3>
               <span>
                 <img ng-src="{{selectedTask.gravatar}}" class="img-circle gravatar">
-                Posted by {{selectedTask.name}}
+                Posted by {{selectedTask.name}} -
                 <span am-time-ago="selectedTask.datetime"></span>&nbsp;
                 <span class="label status {{selectedTask.status}}">{{selectedTask.status}}</span>
               </span>
@@ -70,6 +73,10 @@
                   </div>
                 </div>
 
+                <div ng-show="isOpen(selectedTask) && !isTaskCreator(selectedTask)">
+                  <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#offModal">Make an Offer</button>
+                </div>
+
               </div>
             </div>
           </div>
@@ -85,6 +92,32 @@
                 </div>
                 <div class="panel-body">
                   {{selectedTask.description}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- OFFERS -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-default">
+
+                <div class="panel-heading">
+                  <h3 class="panel-title">Offers</h3>
+                </div>
+
+                <div class="panel-body">
+                  <div class="title" ng-hide="offers && offers.length > 0">
+                    <span>NO OFFER FOR THIS TASK YET</span>
+                  </div>
+
+                  <div class="row" ng-repeat="offer in offers">
+                    <div class="col-md-10">
+                      <img ng-src="{{offer.gravatar}}" class="img-circle offer gravatar">
+                      <span>{{offer.name}}</span>
+                    </div>
+                  </div><br>
+
                 </div>
               </div>
             </div>
@@ -149,3 +182,4 @@
 </div>
 
 <div ng-include="'views/partials/edit.html'"></div>
+<div ng-include="'views/partials/offer.html'"></div>
