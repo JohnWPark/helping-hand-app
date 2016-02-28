@@ -6,25 +6,27 @@ var app = angular
     'ngResource',
     'ngRoute',
     'firebase',
-    'toaster'
+    'toaster',
+    'angularMoment'
   ])
   .constant('FURL', 'https://helpinghand-app.firebaseio.com/')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/browse.html'
+        templateUrl: 'views/browse.html',
+        controller: 'BrowseCtrl'
       })
       .when('/login', {
         templateUrl: 'views/login.html',
-        controller: 'AuthController'
+        controller: 'AuthCtrl'
       })
       .when('/register', {
         templateUrl: 'views/register.html',
-        controller: 'AuthController'
+        controller: 'AuthCtrl'
       })
-      .when('/browse', {
+      .when('/browse/:taskId', {
         templateUrl: 'views/browse.html',
-        controller: 'TaskCtrl'
+        controller: 'BrowseCtrl'
       })
       .otherwise({
         redirectTo: '/'
