@@ -27,16 +27,20 @@ app.controller('BrowseCtrl', function($scope, $routeParams, toaster, Task, Auth,
 
       $scope.isTaskCreator = Task.isCreator;
       $scope.isOpen = Task.isOpen;
+
+      $scope.isAssignee = Task.isAssignee;
+
+      $scope.isCompleted = Task.isCompleted;
     }
 
-    $scope.comments = Comment.comments(task.$id);
+      $scope.comments = Comment.comments(task.$id);
 
-    $scope.offers = Offer.offers(task.$id);
+      $scope.offers = Offer.offers(task.$id);
 
-    $scope.block = false;
+      $scope.block = false;
 
-    $scope.isOfferMaker = Offer.isMaker;
-  };
+      $scope.isOfferMaker = Offer.isMaker;
+    };
 
   $scope.cancelTask = function(taskId) {
     Task.cancelTask(taskId).then(function() {
@@ -78,6 +82,18 @@ app.controller('BrowseCtrl', function($scope, $routeParams, toaster, Task, Auth,
 
       $scope.alreadyOffered = false;
       $scope.block = false;
+    });
+  };
+
+  $scope.acceptOffer = function(offerId, runnerId) {
+    Offer.acceptOffer($scope.selectedTask.$id, offerId, runnerId).then(function() {
+      toaster.pop('success', 'Offer is accepted.');
+    });
+  };
+
+  $scope.completeTask = function(taskId) {
+    Task.completeTask(taskId).then(function() {
+      toaster.pop('success', "Great, you have completed this task!");
     });
   };
 
